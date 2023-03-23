@@ -1,0 +1,19 @@
+base_conocimiento = [    {'edad': '> 18', 'peso': '> 80kg', 'altura': '> 1.70m', 'conclusion': 'sobrepeso'},    {'edad': '> 18', 'peso': '<= 80kg', 'altura': '> 1.70m', 'conclusion': 'no sobrepeso'},    {'edad': '> 18', 'peso': '> 65kg', 'altura': '<= 1.70m', 'conclusion': 'sobrepeso'},    {'edad': '> 18', 'peso': '<= 65kg', 'altura': '<= 1.70m', 'conclusion': 'no sobrepeso'},    {'edad': '<= 18', 'peso': '> 60kg', 'altura': '> 1.60m', 'conclusion': 'sobrepeso'},    {'edad': '<= 18', 'peso': '<= 60kg', 'altura': '> 1.60m', 'conclusion': 'no sobrepeso'},    {'edad': '<= 18', 'peso': '> 45kg', 'altura': '<= 1.60m', 'conclusion': 'sobrepeso'},    {'edad': '<= 18', 'peso': '<= 45kg', 'altura': '<= 1.60m', 'conclusion': 'no sobrepeso'}]
+
+def inferencia(h):
+    for regla in base_conocimiento:
+        cumple_regla = True
+        for hecho, valor in regla.items():
+            if hecho == 'conclusion':
+                continue
+            if h.get(hecho) != valor:
+                cumple_regla = False
+                break
+        if cumple_regla:
+            return regla['conclusion']
+    return 'No se puede determinar'
+
+# Ejemplo de uso
+hechos = {'edad': '> 18', 'peso': '85kg', 'altura': '1.75m'}
+resultado = inferencia(hechos)
+print('El resultado es:', resultado) # 'El resultado es: sobrepeso'
